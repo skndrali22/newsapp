@@ -78,6 +78,7 @@ export class News extends Component {
       loading: false,
     }
   }
+  
   render() {
     return (
       <div>
