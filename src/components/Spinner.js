@@ -1,13 +1,15 @@
-// import React, { Component } from 'react'
-// import loading from './loading.webp'
-// export class Spinner extends Component {
-//   render() {
-//     return (
-//       <div>
-//          <img src={loading} alt= "loading" />   
-//       </div>
-//     )
-//   }
-// }
+import React, { Component } from 'react'
+import loadingImage from './loading.webp';
 
-// export default Spinner
+
+export class Spinner extends Component {
+  render() {
+    return (
+      <div>
+         <img src={loadingImage} alt= "loading" />   
+      </div>
+    )
+  }
+}
+
+export default Spinner

@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
-import NewsItem from '../NewsItem'
-// import Spinner from './Spinner';
+import NewsItem from './NewsItem'
+import Spinner from './Spinner';
 
 
 
@@ -128,7 +128,7 @@ export class News extends Component {
       <div>
         <div className="container my-3">
           <h1 className='text-center'>News app - Top headlines</h1>
-          {/* <Spinner/> */}
+          <Spinner/>
           <div className="row box1">
             {this.state.articles.map((element) => {
               return <div className="col-lg-4 col-md-4 my-3 my-3 my-2 inner-box" key={element.url}>
