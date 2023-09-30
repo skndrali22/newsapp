@@ -6,7 +6,7 @@ function App() {
   return (
     <div className="App">
         <NavBar/>
-        <News/>
+        <News pageSize = {5}/>
     </div>
   );
 }
