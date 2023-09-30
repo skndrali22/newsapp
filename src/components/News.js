@@ -150,7 +150,7 @@ export class News extends Component {
     }
   }
   render() {
-    console.log("render");
+    // console.log("render");
     return (
       <div>
         <div className="container my-3">
