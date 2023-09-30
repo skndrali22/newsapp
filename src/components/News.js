@@ -82,43 +82,54 @@ export class News extends Component {
       page: 1,
     }
   }
-  
+
   async componentDidMount() {
+
     let url = `https://newsapi.org/v2/top-headlines?country=in&apiKey=9eb944a19de04d5fb7f715fb7f78a969&pageSize=${this.props.pageSize}`;
+
+    this.setState({loading:true});
+
     let data = await fetch(url);
     let parseData = await data.json();
     // console.log(parseData);
     this.setState({
       articles: parseData.articles,
-      totalResults: parseData.totalResults
+      totalResults: parseData.totalResults,
+      loading:false
     })
   }
   handlePrevPage = async () => {
-    console.log("previous");
-
+    
     let url = `https://newsapi.org/v2/top-headlines?country=in&apiKey=9eb944a19de04d5fb7f715fb7f78a969&page=${this.state.page - 1} &pageSize=${this.props.pageSize} `;
+
+    this.setState({loading:true});
+
     let data = await fetch(url);
     let parseData = await data.json();
+
 
     this.setState({
       page: this.state.page - 1,
       articles: parseData.articles,
+      loading: false
     })
   }
 
   handleNextpage = async () => {
-    console.log("handleNext ");
+    
+    if (!( this.state.page + 1 > Math.ceil(this.state.totalResults / this.props.pageSize))) {
 
-    if (this.state.page + 1 > Math.ceil(this.state.totalResults / this.props.pageSize)) { }
-
-    else {
       let url = `https://newsapi.org/v2/top-headlines?country=in&apiKey=9eb944a19de04d5fb7f715fb7f78a969&page=${this.state.page + 1} &pageSize=${this.props.pageSize}`;
+
+      this.setState({loading:true})
+
       let data = await fetch(url);
       let parseData = await data.json();
 
       this.setState({
         page: this.state.page + 1,
-        articles: parseData.articles
+        articles: parseData.articles,
+        loading:false 
       })
     }
   }
@@ -128,9 +139,9 @@ export class News extends Component {
       <div>
         <div className="container my-3">
           <h1 className='text-center'>News app - Top headlines</h1>
-          <Spinner/>
+          {this.state.loading && <Spinner/>}
           <div className="row box1">
-            {this.state.articles.map((element) => {
+            {!this.state.loading &&  this.state.articles.map((element) => {
               return <div className="col-lg-4 col-md-4 my-3 my-3 my-2 inner-box" key={element.url}>
                 <NewsItem title={element.title ? element.title.slice(0, 30) : " "} description={element.description ? element.description : " "} imgUrl={element.urlToImage} newsUrl={element.url} />
               </div>
@@ -140,12 +151,9 @@ export class News extends Component {
 
           <div className="container d-flex justify-content-between">
             <button disabled={this.state.page <= 1} type='button' className="btn btn-dark" onClick={this.handlePrevPage}>&larr; Previous</button>
-            <button disabled = {this.state.page + 1 > Math.ceil(this.state.totalResults / this.props.pageSize)} type='button' className="btn btn-dark" onClick={this.handleNextpage}>Next &rarr;</button>
+            <button disabled={this.state.page + 1 > Math.ceil(this.state.totalResults / this.props.pageSize)} type='button' className="btn btn-dark" onClick={this.handleNextpage}>Next &rarr;</button>
           </div>
         </div>
-
-
-
       </div>
     )
   }

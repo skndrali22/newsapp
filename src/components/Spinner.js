@@ -5,8 +5,8 @@ import loadingImage from './loading.webp';
 export class Spinner extends Component {
   render() {
     return (
-      <div>
-         <img src={loadingImage} alt= "loading" />   
+      <div className='text-center container' >
+         <img style={{height:'180px'}} src={loadingImage} alt= "loading" />   
       </div>
     )
   }
