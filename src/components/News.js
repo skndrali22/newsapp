@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import NewsItem from './NewsItem'
 import Spinner from './Spinner';
+import PropTypes from 'prop-types'
+
 
 
 
@@ -73,6 +75,20 @@ export class News extends Component {
   //     "content": "If theres one refreshing thing about Harry Brook, its his simple manner. Thats a compliment in a complex world. Hes a bit dumb,\" said Test captain Ben Stokes on the eve of Brooks Test debut. The newb… [+4906 chars]"
   //   }
   // ]
+
+  static defaultProps = {
+    country : "in",
+    pageSize:8,
+    category: 'general',
+    
+  }
+
+  static propTypes = {
+    country : PropTypes.string,
+    pageSize: PropTypes.number,
+    category: PropTypes.string,    
+  }
+
   constructor() {
     super();
     this.state = {
@@ -85,7 +101,7 @@ export class News extends Component {
 
   async componentDidMount() {
 
-    let url = `https://newsapi.org/v2/top-headlines?country=in&apiKey=9eb944a19de04d5fb7f715fb7f78a969&pageSize=${this.props.pageSize}`;
+    let url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=9eb944a19de04d5fb7f715fb7f78a969&pageSize=${this.props.pageSize}`;
 
     this.setState({loading:true});
 
@@ -100,7 +116,7 @@ export class News extends Component {
   }
   handlePrevPage = async () => {
     
-    let url = `https://newsapi.org/v2/top-headlines?country=in&apiKey=9eb944a19de04d5fb7f715fb7f78a969&page=${this.state.page - 1} &pageSize=${this.props.pageSize} `;
+    let url = `https://newsapi.org/v2/top-headlines?country=${ this.props.country }&category=${this.props.category}&apiKey=9eb944a19de04d5fb7f715fb7f78a969&page=${this.state.page - 1} &pageSize=${this.props.pageSize} `;
 
     this.setState({loading:true});
 
@@ -119,7 +135,7 @@ export class News extends Component {
     
     if (!( this.state.page + 1 > Math.ceil(this.state.totalResults / this.props.pageSize))) {
 
-      let url = `https://newsapi.org/v2/top-headlines?country=in&apiKey=9eb944a19de04d5fb7f715fb7f78a969&page=${this.state.page + 1} &pageSize=${this.props.pageSize}`;
+      let url = `https://newsapi.org/v2/top-headlines?country=${ this.props.country }&category=${this.props.category}&apiKey=9eb944a19de04d5fb7f715fb7f78a969&page=${this.state.page + 1} &pageSize=${this.props.pageSize}`;
 
       this.setState({loading:true})
 
@@ -138,7 +154,7 @@ export class News extends Component {
     return (
       <div>
         <div className="container my-3">
-          <h1 className='text-center'>News app - Top headlines</h1>
+          <h1 className='text-center' style={{margin:'30px 0'}} >News app - Top headlines</h1>
           {this.state.loading && <Spinner/>}
           <div className="row box1">
             {!this.state.loading &&  this.state.articles.map((element) => {
