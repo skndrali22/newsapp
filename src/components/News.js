@@ -75,11 +75,16 @@ export class News extends Component {
     console.log('Hello i am a constructor from news component');
     this.state = {
       articles: this.articles,
+      // articles : this.articles = [],
       loading: false,
     }
   }
+  componentDidMount(){
+    console.log("cmd");
+  }
   
   render() {
+    console.log("render");
     return (
       <div>
         <div className="container my-3">
