@@ -74,12 +74,13 @@ export class News extends Component {
     super();
     this.state = {
       // articles: this.articles,
-      articles : this.articles = [],
+      articles: this.articles = [],
       loading: false,
-      page:1,
+      page: 1,
     }
   }
-  async componentDidMount(){
+  
+  async componentDidMount() {
     let url = "https://newsapi.org/v2/top-headlines?country=in&apiKey=9eb944a19de04d5fb7f715fb7f78a969&pageSize=20";
     let data = await fetch(url);
     let parseData = await data.json();
@@ -89,31 +90,31 @@ export class News extends Component {
       totalResults: parseData.totalResults
     })
   }
-  handlePrevPage= async ()=>{
-    console.log("previous");  
+  handlePrevPage = async () => {
+    console.log("previous");
 
     let url = `https://newsapi.org/v2/top-headlines?country=in&apiKey=9eb944a19de04d5fb7f715fb7f78a969&page=${this.state.page - 1} &pageSize=20 `;
     let data = await fetch(url);
     let parseData = await data.json();
 
     this.setState({
-      page: this.state.page - 1 ,
-      articles : parseData.articles,
+      page: this.state.page - 1,
+      articles: parseData.articles,
     })
   }
 
-  handleNextpage=  async ()=>{
+  handleNextpage = async () => {
     console.log("handleNext ");
 
-    if(this.state.page + 1 > Math.ceil(this.state.totalResults/20)){}
+    if (this.state.page + 1 > Math.ceil(this.state.totalResults / 20)) { }
 
-    else{
+    else {
       let url = `https://newsapi.org/v2/top-headlines?country=in&apiKey=9eb944a19de04d5fb7f715fb7f78a969&page=${this.state.page + 1} &pageSize=20`;
       let data = await fetch(url);
       let parseData = await data.json();
-  
+
       this.setState({
-        page:  this.state.page + 1, 
+        page: this.state.page + 1,
         articles: parseData.articles
       })
     }
@@ -123,22 +124,22 @@ export class News extends Component {
     return (
       <div>
         <div className="container my-3">
-        <h1>News app - Top headlines</h1>
+          <h1>News app - Top headlines</h1>
           <div className="row box1">
             {this.state.articles.map((element) => {
-              return <div className="col-lg-4 col-md-4 my-3 my-3 my-2 inner-box"key={element.url}>
-                <NewsItem title={element.title?element.title.slice(0,30):" "} description={element.description?element.description:" "} imgUrl={element.urlToImage} newsUrl = {element.url} />
+              return <div className="col-lg-4 col-md-4 my-3 my-3 my-2 inner-box" key={element.url}>
+                <NewsItem title={element.title ? element.title.slice(0, 30) : " "} description={element.description ? element.description : " "} imgUrl={element.urlToImage} newsUrl={element.url} />
               </div>
             })
             }
           </div>
+
           <div className="container d-flex justify-content-between">
-            
-            <button disabled = {this.state.page<=1} type='button' className="btn btn-dark" onClick={this.handlePrevPage}>&larr; Previous</button>
+            <button disabled={this.state.page <= 1} type='button' className="btn btn-dark" onClick={this.handlePrevPage}>&larr; Previous</button>
             <button type='button' className="btn btn-dark" onClick={this.handleNextpage}>Next &rarr;</button>
+          </div>
         </div>
-        </div>
-        
+
 
 
       </div>
