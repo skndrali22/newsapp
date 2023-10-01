@@ -7,9 +7,9 @@ export class NewsItem extends Component {
     return (
       <div>
         <div className="card">
-          <span class="position-absolute top-0 translate-middle badge rounded-pill bg-danger" style={{left:'87% ' , zIndex:'10'}}> 
+          <span className="position-absolute top-0 translate-middle badge rounded-pill bg-danger" style={{left:'87% ' , zIndex:'10'}}> 
             {source}
-            <span class="visually-hidden">unread messages</span>
+            <span className="visually-hidden">unread messages</span>
           </span>
           <img src={!imgUrl ? "https://www.hindustantimes.com/ht-img/img/2023/09/29/1600x900/air_india_1695963602560_1695963602832.jpg" : imgUrl} className="card-img-top" alt="..." />
           <div className="card-body">
