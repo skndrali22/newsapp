@@ -10,7 +10,7 @@ import {
 import React, { Component } from 'react'
 
 export class App extends Component {
-  pageSize = 15;
+  pageSize = 6;
   render() {
     return (
       <div className="App">
